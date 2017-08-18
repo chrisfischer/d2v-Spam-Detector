@@ -64,6 +64,8 @@ def txt_2_vectors(txt_set, model, is_training):
             words = nltk.word_tokenize(s * 5 + b)
             v = model.infer_vector(words)
 
+        v = np.append(v, [len(s), len(b)])
+
         txt_vectors.append(v)
         txt_ys.append(int(is_spam))
 

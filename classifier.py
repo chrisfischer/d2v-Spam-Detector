@@ -8,7 +8,6 @@ log_dir = '/tmp/tensorflow/spam/logs/spam_with_summaries'
 '''
 Based off:
 https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/multilayer_perceptron.py
-
 '''
 
 
@@ -30,9 +29,9 @@ class Batchifer(object):
 
 def train_classifier(xs_train, ys_train, xs_test, ys_test):
     # Parameters
-    learning_rate = 0.005
+    learning_rate = 0.003
     training_epochs = 600
-    batch_size = 128
+    batch_size = 64
     display_step = 1
     test_display_step = 20
 
@@ -42,8 +41,8 @@ def train_classifier(xs_train, ys_train, xs_test, ys_test):
     # Network Parameters
     n_hidden_1 = 256    # 1st layer number of features
     n_hidden_2 = 128    # 2nd layer number of features
-    n_hidden_3 = 64     # 2nd layer number of features
-    n_input = 300
+    # n_hidden_3 = 64     # 2nd layer number of features
+    n_input = 302
     n_classes = 1
 
     # get session
@@ -64,25 +63,27 @@ def train_classifier(xs_train, ys_train, xs_test, ys_test):
             layer_2 = tf.add(tf.matmul(layer_1, weights['h2']), biases['b2'])
             layer_2 = tf.nn.relu(layer_2)
         # Hidden layer with RELU activation
+        '''
         with tf.name_scope('fully_connected3'):
             layer_3 = tf.add(tf.matmul(layer_2, weights['h3']), biases['b3'])
             layer_3 = tf.nn.relu(layer_3)
+        '''
         # Output layer with linear activation
         with tf.name_scope('fully_connected4'):
-            out_layer = tf.matmul(layer_3, weights['out']) + biases['out']
+            out_layer = tf.matmul(layer_2, weights['out']) + biases['out']
         return out_layer
 
     # Store layers weight & bias
     weights = {
         'h1': tf.Variable(tf.random_normal([n_input, n_hidden_1])),
         'h2': tf.Variable(tf.random_normal([n_hidden_1, n_hidden_2])),
-        'h3': tf.Variable(tf.random_normal([n_hidden_2, n_hidden_3])),
-        'out': tf.Variable(tf.random_normal([n_hidden_3, n_classes]))
+        # 'h3': tf.Variable(tf.random_normal([n_hidden_2, n_hidden_3])),
+        'out': tf.Variable(tf.random_normal([n_hidden_2, n_classes]))
     }
     biases = {
         'b1': tf.Variable(tf.random_normal([n_hidden_1])),
         'b2': tf.Variable(tf.random_normal([n_hidden_2])),
-        'b3': tf.Variable(tf.random_normal([n_hidden_3])),
+        # 'b3': tf.Variable(tf.random_normal([n_hidden_3])),
         'out': tf.Variable(tf.random_normal([n_classes]))
     }
 

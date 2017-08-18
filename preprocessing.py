@@ -4,7 +4,7 @@ import os
 import sys
 
 # reload(sys)
-sys.setdefaultencoding('utf8')
+# sys.setdefaultencoding('utf8')
 
 
 def load_files(log_directory, is_spam):
