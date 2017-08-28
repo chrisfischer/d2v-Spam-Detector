@@ -76,4 +76,19 @@ def txt_2_vectors(txt_set, model, is_training):
 
     # print txt_vectors.shape, txt_ys.shape
 
+    # normalize
+    mean = np.zeros(txt_vectors[0].size)
+    for i in range(1, 3):
+        mean[-i] = np.mean(txt_vectors[:, -i])
+
+    std = np.ones(txt_vectors[0].size)
+    for i in range(1, 3):
+        std[-i] = np.std(txt_vectors[:, -i])
+
+    print std[-1], std[-2]
+    print mean[-1], mean[-2]
+
+    np.subtract(txt_vectors, mean)
+    np.divide(txt_vectors, std)
+
     return txt_vectors, txt_ys

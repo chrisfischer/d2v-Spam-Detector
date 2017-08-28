@@ -16,7 +16,7 @@ def load_files(log_directory, is_spam):
             body = infile.read()
             subject = subject.decode('utf-8', 'ignore').encode("utf-8")
             body = body.decode('utf-8', 'ignore').encode("utf-8")
-            txts.append((subject, infile.read(), is_spam))
+            txts.append((subject, body, is_spam))
 
     return txts
 
